@@ -9,8 +9,7 @@ The package can be installed by running the following command.
 
 ```r
 library(devtools)
-install_github(repo = "sws_r_api", username = "mkao006", 
-               subdir = "faoswsFlag/faoswsFlag")
+install_github(repo = "SWS-Methodology/sws_flag", subdir = "faoswsFlag")
 ```
 
 
