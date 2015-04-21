@@ -44,4 +44,4 @@ from unofficial sources (T); then the observation status flag of yield
 which is calculated by division of production by area harvested will
 be (T).
 
-** All work under this repository represents the latest status of development and made public for collaboration. It however, does not reflect the current state of the system and use of the program is at the discretionary of the users. **
+** All work under this repository represents the latest status of development and is made public for collaboration purposes. It does not reflect the current state of the system and use of the program is at the discretion of the users. **
