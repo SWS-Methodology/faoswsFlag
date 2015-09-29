@@ -2,6 +2,7 @@
 % Please edit documentation in R/faoswsFlag-package.R
 \docType{package}
 \name{faoswsFlag-package}
+\alias{faoswsFlag}
 \alias{faoswsFlag-package}
 \title{Package to manipulate and aggregate observational status
 flags.}
