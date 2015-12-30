@@ -2,6 +2,8 @@
 ##' observational status flags.
 ##'
 ##' @name faoswsFlag-package
+##' @aliases faoswsFlag
+##' 
 ##' @docType package
 ##' @title Package to manipulate and aggregate observational status
 ##' flags.

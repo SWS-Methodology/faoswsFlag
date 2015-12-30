@@ -9,8 +9,7 @@ The package can be installed by running the following command.
 
 ```r
 library(devtools)
-install_github(repo = "sws_r_api", username = "mkao006", 
-               subdir = "faoswsFlag/faoswsFlag")
+install_github(repo = "SWS-Methodology/faoswsFlag")
 ```
 
 
@@ -44,3 +43,5 @@ of production was official ( ), while the area harvested was collected
 from unofficial sources (T); then the observation status flag of yield
 which is calculated by division of production by area harvested will
 be (T).
+
+** All work under this repository represents the latest status of development and is made public for collaboration purposes. It does not reflect the current state of the system and use of the program is at the discretion of the users. **

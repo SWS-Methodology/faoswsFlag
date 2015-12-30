@@ -1,3 +1,5 @@
 .git
 documentation
 sandbox
+^.*\.Rproj$
+^\.Rproj\.user$
