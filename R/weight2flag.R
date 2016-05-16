@@ -6,10 +6,10 @@
 ##' @param flagTable The table mapping flags and weights.
 ##'
 ##' @export
-##' 
+##'
 
 weight2flag = function(flagObservationWeight,
-                       flagTable = faoswsFlagTable){
+                       flagTable = flagWeightTable){
     index = match(flagObservationWeight, flagTable$flagObservationWeights)
     as.character(flagTable$flagObservationStatus[index])
 }

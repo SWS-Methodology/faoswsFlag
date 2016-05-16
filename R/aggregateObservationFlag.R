@@ -11,7 +11,7 @@
 ##' @details This function works in a similar way to base::sum.  The first
 ##' argument is ..., and this allows the user to pass multiple vectors of
 ##' flags which should all be aggregated.
-##' 
+##'
 ##' @examples
 ##' aggregateObservationFlag("T", "E")
 ##' # Passing multiple flags aggregates them all together:
@@ -20,16 +20,16 @@
 ##' aggregateObservationFlag(c("T", "T"), c("M", ""))
 ##' # And more than 2 vectors:
 ##' aggregateObservationFlag(c("T", "T"), c("M", ""), c("I", ""))
-##' 
+##'
 ##' @seealso \code{\link{sum}}
-##' 
+##'
 ##' @return A character vector containing the aggregated flags.
 ##'
 ##' @export
-##' 
+##'
 
-aggregateObservationFlag = function(..., flagTable = faoswsFlagTable){
-    
+aggregateObservationFlag = function(..., flagTable = flagWeightTable){
+
     flags = list(...)
 
     ## Data Quality Checks
@@ -39,7 +39,7 @@ aggregateObservationFlag = function(..., flagTable = faoswsFlagTable){
     allFlags = do.call("c", flags)
     if(any(!allFlags %in% flagTable$flagObservationStatus))
         stop("Some flags are not in the flagTable.")
-    
+
     ## Convert flags to numeric information weight as determined by
     ## the table.
     weights = lapply(X = flags, FUN = flag2weight, flagTable = flagTable)
