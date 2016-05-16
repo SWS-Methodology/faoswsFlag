@@ -6,7 +6,8 @@
 the flagValidTable.}
 \usage{
 checkFlagValidity(data, flagObservationVar = "flagObservationStatus",
-  flagMethodVar = "flagMethod", flagTable = flagValidTable)
+  flagMethodVar = "flagMethod", returnData = TRUE, normalised = TRUE,
+  denormalisedKey = "measuredElement", flagTable = flagValidTable)
 }
 \arguments{
 \item{data}{The data to be checked}
@@ -16,8 +17,15 @@ status flag.}
 
 \item{flagMethodVar}{The column name corresponding to the method flag.}
 
-\item{flagTable}{The table containing valid/invalid flag combination.
-See \data{flagValidTable} in \pkg{faoswsFlag}}
+\item{returnData}{logical, whether the data should be returned}
+
+\item{normalised}{logical, whether the data is normalised}
+
+\item{denormalisedKey}{optional, only required if the input data is not
+normalised.It is the name of the key that denormalises the data.}
+
+\item{flagTable}{The table containing valid/invalid flag combination. See
+\data{flagValidTable} in \pkg{faoswsFlag}}
 }
 \value{
 The original data is returned if all flags are valid, otherwise an
