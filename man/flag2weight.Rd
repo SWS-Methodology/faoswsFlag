@@ -4,7 +4,7 @@
 \alias{flag2weight}
 \title{Function to convert flag to information weight.}
 \usage{
-flag2weight(flagObservationStatus, flagTable = faoswsFlagTable)
+flag2weight(flagObservationStatus, flagTable = flagWeightTable)
 }
 \arguments{
 \item{flagObservationStatus}{The flag}

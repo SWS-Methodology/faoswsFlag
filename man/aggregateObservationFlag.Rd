@@ -4,13 +4,13 @@
 \alias{aggregateObservationFlag}
 \title{This function performs aggregation of flags}
 \usage{
-aggregateObservationFlag(..., flagTable = faoswsFlagTable)
+aggregateObservationFlag(..., flagTable = flagWeightTable)
 }
 \arguments{
 \item{...}{Vectors of flags, each of the same length.  See details.}
 
 \item{flagTable}{The table which maps the relationship between the
-flag and its information weight.}
+flag and its information weight. see \data{flagWeightTable}}
 }
 \value{
 A character vector containing the aggregated flags.
