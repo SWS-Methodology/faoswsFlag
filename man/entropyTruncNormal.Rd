@@ -8,9 +8,9 @@ distribution.}
 entropyTruncNormal(a = -Inf, b = Inf, mean = 0, sd = 1)
 }
 \arguments{
-\item{a}{lower bound. These may be ‘-Inf’}
+\item{a}{lower bound. These may be -Inf}
 
-\item{b}{upper bound. These may be ‘Inf’}
+\item{b}{upper bound. These may be Inf}
 
 \item{mean}{mean of the distributinon.}
 
