@@ -6,7 +6,7 @@
 ##'
 ##' @param ... Vectors of flags, each of the same length.  See details.
 ##' @param flagTable The table which maps the relationship between the
-##' flag and its information weight. see \data{flagWeightTable}
+##' flag and its information weight. see data{flagWeightTable}
 ##'
 ##' @details This function works in a similar way to base::sum.  The first
 ##' argument is ..., and this allows the user to pass multiple vectors of
