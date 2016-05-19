@@ -10,7 +10,7 @@ aggregateObservationFlag(..., flagTable = flagWeightTable)
 \item{...}{Vectors of flags, each of the same length.  See details.}
 
 \item{flagTable}{The table which maps the relationship between the
-flag and its information weight. see \data{flagWeightTable}}
+flag and its information weight. see data{flagWeightTable}}
 }
 \value{
 A character vector containing the aggregated flags.
