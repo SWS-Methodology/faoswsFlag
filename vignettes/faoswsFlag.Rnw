@@ -28,20 +28,20 @@
 \author{Michael. C. J. Kao\\ Food and Agriculture Organization \\ of
   the United Nations}
 
-\Plainauthor{Michael. C. J. Kao} 
+\Plainauthor{Michael. C. J. Kao}
 
 \Plaintitle{faoswsFlag:A package to manage flag aggregation}
 
 \Shorttitle{Flag module}
 
-\Abstract{ 
+\Abstract{
 
   This short documentation is intended to explain how observation
   flags are aggregated in the ESS Statistical Working System.
-  
+
   The methodology and tools are presented step by step, with code
   examples and explanations.
-  
+
   The paper also provide example of potential applications for
   integrating flag information.
 
@@ -66,11 +66,11 @@
 <<setup, include=FALSE, cache=FALSE>>=
 library(knitr)
 opts_chunk$set(fig.path='figure/', fig.align='center', fig.show='hold',
-               warning=FALSE, message=FALSE, error=FALSE, tidy=FALSE, 
+               warning=FALSE, message=FALSE, error=FALSE, tidy=FALSE,
                results='markup', eval=TRUE, echo=TRUE, cache=FALSE)
 options(replace.assign=TRUE,width=80)
 assign("depthtrigger", 10, data.table:::.global)
-@ 
+@
 
 
 \section{Introduction}
@@ -82,7 +82,7 @@ library(faoswsFlag)
 library(ggplot2)
 library(splines)
 
-@ 
+@
 
 Since the introduction of the new statistical working system, the old
 symbol which reprents the collection and computation method of the
@@ -116,7 +116,7 @@ Shown below is the corresponding table for the observation flags as of
       T & Unofficial figure\\
       \hline
     \end{tabular}
-  \end{center}  
+  \end{center}
 \end{table}
 
 The remaining of the paper is divided into three sections. First, we
@@ -143,11 +143,10 @@ Shown below is the default weights table for the new statistical
 working system.
 
 <<flag-table>>=
-
 ## Printed here is the default flag conversion table shipped with the
 ## package.
-faoswsFlagTable
-@ 
+faoswsFlag::flagWeightTable
+@
 
 From this table, we have assigned 1 to official figure while 0 to
 missing values. Albeit the arbitrary selection of the values, it
@@ -162,7 +161,7 @@ and that is the value of the weights are unique.
 \section{Compute Flag Aggregation}
 
 In this section, we take the computation of yield for example and
-illustrate how to compute flag aggregation with the package. 
+illustrate how to compute flag aggregation with the package.
 
 The value of yield is computed based on production and area harvested
 which may come from different sources. Thus, when we compute a derived
@@ -181,28 +180,28 @@ the lower information content of the unofficial figure.
 <<aggregate-flag1>>=
 ## The function works just like sum(), with an optional arguement for
 ## the flag table to be used.
-aggregateObservationFlag("", "T", flagTable = faoswsFlagTable)
-@ 
+aggregateObservationFlag("", "T", flagTable = flagWeightTable)
+@
 
 <<aggregate-flag2>>=
 ## Aggregation of multiple flag
 
 ## Simulate flag for production
-simulatedProductionFlag = 
-    faoswsFlagTable[sample(1:NROW(faoswsFlagTable), 10, replace = TRUE),
-                    "flagObservationStatus"]
+simulatedProductionFlag =
+    flagWeightTable[sample(1:NROW(flagWeightTable), 10, replace = TRUE),
+                    flagObservationStatus]
 simulatedProductionFlag
 
 ## Simulated flag for area harvested
-simulatedAreaFlag = 
-    faoswsFlagTable[sample(1:NROW(faoswsFlagTable), 10, replace = TRUE),
-                    "flagObservationStatus"]
+simulatedAreaFlag =
+    flagWeightTable[sample(1:NROW(flagWeightTable), 10, replace = TRUE),
+                    flagObservationStatus]
 simulatedAreaFlag
 
 ## Now compute the aggregation of flag
-aggregateObservationFlag(simulatedProductionFlag, simulatedAreaFlag, 
-                         flagTable = faoswsFlagTable)
-@ 
+aggregateObservationFlag(simulatedProductionFlag, simulatedAreaFlag,
+                         flagTable = flagWeightTable)
+@
 
 
 Currently, the weights of the flags are chosen as arbitrary mainly to
@@ -249,11 +248,11 @@ respectively.
 
 <<simulated-example, fig.height=5>>=
 ## New table for simulation.
-simTable = faoswsFlagTable
-simTable[simTable$flagObservationStatus == "E", 
+simTable = flagWeightTable
+simTable[simTable$flagObservationStatus == "E",
          "flagObservationWeights"] = 0.4
 
-## Simuate a data set which has a single point that was imputed badly 
+## Simuate a data set which has a single point that was imputed badly
 ## but still used for later analysis.
 x = 1991:2014
 y = 100 + 10 * (x - 1989) + rnorm(length(x), sd = 30)
@@ -262,19 +261,19 @@ y[23:24] = c(80, 90)
 f[23:24] = "E"
 simulated.df = data.frame(year = x, simulatedProduction = y, flag = f)
 
-## Plot the data and show the two different fit when accounting for the 
+## Plot the data and show the two different fit when accounting for the
 ## source and quality of information.
-ggplot(data = simulated.df, 
-       aes(x = year, y = simulatedProduction, label = flag)) + 
-    geom_text() + 
-    geom_smooth(method = "lm", formula = y ~ x, 
-                data = simulated.df, se = FALSE, col = "red") + 
-    geom_smooth(method = "lm", formula = y ~ x, 
+ggplot(data = simulated.df,
+       aes(x = year, y = simulatedProduction, label = flag)) +
+    geom_text() +
+    geom_smooth(method = "lm", formula = y ~ x,
+                data = simulated.df, se = FALSE, col = "red") +
+    geom_smooth(method = "lm", formula = y ~ x,
                 aes(weight = flag2weight(flag, flagTable = simTable)),
                 data = simulated.df, se = FALSE)
 
 
-@ 
+@
 
 
 \subsection{Weighted Source of Combination}
@@ -298,20 +297,20 @@ y = 100 + c(10, 15) * (x - 1989)^2 + rnorm(length(x), sd = 20)
 f = rep(c("E", "T"), length(x)/2)
 simulated.df = data.frame(year = x, simulatedProduction = y, flag = f)
 
-## Plot the data and show the two different fit when accounting for the 
+## Plot the data and show the two different fit when accounting for the
 ## source and quality of information.
-ggplot(data = simulated.df, 
-       aes(x = year, y = simulatedProduction, label = flag)) + 
-    geom_text() + 
-    geom_smooth(method = "lm", formula = y ~ bs(x), 
-                data = simulated.df, se = FALSE, col = "red") + 
-    geom_smooth(method = "lm", formula = y ~ bs(x), 
+ggplot(data = simulated.df,
+       aes(x = year, y = simulatedProduction, label = flag)) +
+    geom_text() +
+    geom_smooth(method = "lm", formula = y ~ bs(x),
+                data = simulated.df, se = FALSE, col = "red") +
+    geom_smooth(method = "lm", formula = y ~ bs(x),
                 aes(weight = flag2weight(flag, flagTable = simTable)),
                 data = simulated.df, se = FALSE)
 
 
 
-@ 
+@
 
 \section{Computing Weights}
 
@@ -347,7 +346,7 @@ simple calculate the Kullback-Leibler Divergence
 $D_{\mathrm{KL}}(P\|Q)$. After calculating the Kullback-Leibler
 Divergence, we can compute the weight according to the information
 gain.
-  
+
 
 \begin{equation*}
   \omega_i = \left\{
@@ -387,7 +386,7 @@ getAllCountryCode = function(){
                            dataset = swsContext.datasets[[1]]@dataset,
                            dimension = "geographicAreaM49",
                            roots = "1062")
-               )    
+               )
     allCountryCode =
         unique(adjacent2edge(keyTree)$children)
     allCountryCode[allCountryCode %in% FAOcountryProfile$UN_CODE]
@@ -406,7 +405,7 @@ obsTable = computeFlagWeight(history, method = "entropy")
 
 
 
-@ 
+@
 
 
 
