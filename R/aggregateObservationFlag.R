@@ -29,14 +29,24 @@
 ##'
 
 aggregateObservationFlag = function(..., flagTable = flagWeightTable){
-
+  
+    oneVector = FALSE
     flags = list(...)
+    if (length(flags) == 1){
+      oneVector = TRUE
+      flags = unlist(flags)
+    }
 
     ## Data Quality Checks
     flagLengths = lapply(flags, length)
     if(any(flagLengths != flagLengths[[1]]))
         stop("All input flag vectors must be of the same length.")
-    allFlags = do.call("c", flags)
+    
+    if (oneVector){
+      allFlags = flags
+    } else {
+      allFlags = do.call("c", flags)
+    }
     if(any(!allFlags %in% flagTable$flagObservationStatus))
         stop("Some flags are not in the flagTable.")
 
