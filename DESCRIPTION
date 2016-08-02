@@ -1,7 +1,7 @@
 Package: faoswsFlag
 Type: Package
 Title: Package to manipulate and aggregate observational status
-Version: 0.2.9
+Version: 0.2.10
 Date: 2016-08-02
 Authors@R: c(person("Michael. C. J.", "Kao", role = c("aut", "cre"), email = "michael.kao@fao.org"))
 Author: Michael. C. J. Kao <michael.kao@fao.org>
